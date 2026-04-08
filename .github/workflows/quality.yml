@@ -1,0 +1,35 @@
+name: Quality Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  quality-checks:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        pip install pylint pytest pytest-cov bandit
+    
+    - name: Run linter
+      run: |
+        python -m pylint src/ --fail-under=7.0
+    
+    - name: Run tests with coverage
+      run: |
+        python -m pytest tests/ --cov=src --cov-fail-under=70 --cov-report=term
+    
+    - name: Security scan
+      run: |
+        python -m bandit -r src/ -ll
