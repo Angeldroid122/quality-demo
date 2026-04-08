@@ -1,0 +1,15 @@
+[MASTER]
+# Игнорировать папку tests
+ignore=tests
+
+[MESSAGES CONTROL]
+# Отключить некоторые предупреждения
+disable=C0114,C0115,C0116,R0903
+
+[REPORTS]
+# Требуемый минимальный балл (0-10)
+fail-under=7.0
+
+[FORMAT]
+# Максимальная длина строки
+max-line-length=100
